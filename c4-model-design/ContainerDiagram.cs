@@ -27,28 +27,22 @@ namespace c4_model_design
 
 		private void AddContainers()
 		{
-			MobileApplication = contextDiagram.MonitoringSystem.AddContainer("Mobile App", "Permite a los usuarios visualizar un dashboard con el resumen de toda la información del traslado de los lotes de vacunas.", "Swift UI");
-			WebApplication = contextDiagram.MonitoringSystem.AddContainer("Web App", "Permite a los usuarios visualizar un dashboard con el resumen de toda la información del traslado de los lotes de vacunas.", "React");
-			LandingPage = contextDiagram.MonitoringSystem.AddContainer("Landing Page", "", "React");
-			ApiRest = contextDiagram.MonitoringSystem.AddContainer("API REST", "API REST", "NodeJS (NestJS) port 8080");
-			Database = contextDiagram.MonitoringSystem.AddContainer("DB", "", "MySQL Server RDS AWS");
+			WebApplication = contextDiagram.SplitSystem.AddContainer("Web App", "Permite a los usuarios visualizar un dashboard para dividir gastos entre personas.", "Angular");
+			LandingPage = contextDiagram.SplitSystem.AddContainer("Landing Page", "", "HTML, CSS y JS");
+			ApiRest = contextDiagram.SplitSystem.AddContainer("API REST", "API REST", "Spring Boot");
+			Database = contextDiagram.SplitSystem.AddContainer("DB", "", "MySQL Railway");
 		}
 
 		private void AddRelationships() {
-			contextDiagram.Ciudadano.Uses(MobileApplication, "Consulta");
-			contextDiagram.Ciudadano.Uses(WebApplication, "Consulta");
-			contextDiagram.Ciudadano.Uses(LandingPage, "Consulta");
+			contextDiagram.Roomate.Uses(WebApplication, "Consulta");
+			contextDiagram.Roomate.Uses(LandingPage, "Consulta");
 
-			contextDiagram.Admin.Uses(MobileApplication, "Consulta");
-			contextDiagram.Admin.Uses(WebApplication, "Consulta");
-			contextDiagram.Admin.Uses(LandingPage, "Consulta");
 
-			MobileApplication.Uses(ApiRest, "API Request", "JSON/HTTPS");
 			WebApplication.Uses(ApiRest, "API Request", "JSON/HTTPS");
 
             ApiRest.Uses(Database, "", "");
-            ApiRest.Uses(contextDiagram.GoogleMaps, "API Request", "JSON/HTTPS");
-            ApiRest.Uses(contextDiagram.AircraftSystem, "API Request", "JSON/HTTPS");
+            ApiRest.Uses(contextDiagram.Firebase, "API Request", "JSON/HTTPS");
+            ApiRest.Uses(contextDiagram.OAuth, "API Request", "JSON/HTTPS");
 		}
 
 		private void ApplyStyles() {
@@ -63,7 +57,6 @@ namespace c4_model_design
 
 		private void SetTags()
 		{
-			MobileApplication.AddTags(nameof(MobileApplication));
 			WebApplication.AddTags(nameof(WebApplication));
 			LandingPage.AddTags(nameof(LandingPage));
 			ApiRest.AddTags(nameof(ApiRest));
@@ -71,7 +64,7 @@ namespace c4_model_design
 		}
 
 		private void CreateView() {
-			ContainerView containerView = c4.ViewSet.CreateContainerView(contextDiagram.MonitoringSystem, "Contenedor", "Diagrama de Contenedores");
+			ContainerView containerView = c4.ViewSet.CreateContainerView(contextDiagram.SplitSystem, "Contenedor", "Diagrama de Contenedores");
 			containerView.AddAllElements();
 		}
 	}

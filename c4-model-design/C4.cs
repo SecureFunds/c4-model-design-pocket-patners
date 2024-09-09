@@ -31,22 +31,9 @@ namespace c4_model_design
             
 			APIRestComponentDiagram apiRestComponentDiagram = new APIRestComponentDiagram(this, contextDiagram, containerDiagram);
 			
-			MonitoringComponentDiagram monitoringComponentDiagram = new MonitoringComponentDiagram(this, contextDiagram, containerDiagram);
-            SecurityBCComponentDiagram securityComponentDiagram = new SecurityBCComponentDiagram(this, containerDiagram);
-            FlightsBCComponentDiagram flightPlanningComponentDiagram = new FlightsBCComponentDiagram(this, containerDiagram);
-            AirportsBCComponentDiagram airportComponentDiagram = new AirportsBCComponentDiagram(this, containerDiagram);
-            AircraftsBCComponentDiagram aircraftInventoryComponentDiagram = new AircraftsBCComponentDiagram(this, containerDiagram);
-            VaccinesBCComponentDiagram vaccinesInventoryComponentDiagram = new VaccinesBCComponentDiagram(this, containerDiagram);
-			
 			contextDiagram.Generate();
 			containerDiagram.Generate();
 			apiRestComponentDiagram.Generate();
-            monitoringComponentDiagram.Generate();
-			securityComponentDiagram.Generate();
-            flightPlanningComponentDiagram.Generate();
-			airportComponentDiagram.Generate();
-            aircraftInventoryComponentDiagram.Generate();
-            vaccinesInventoryComponentDiagram.Generate();
 			StructurizrClient.PutWorkspace(workspaceId, Workspace);
 		}
 	}

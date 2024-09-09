@@ -1,15 +1,15 @@
 using Structurizr;
+using System.Runtime.InteropServices;
 
 namespace c4_model_design
 {
 	public class ContextDiagram
 	{
 		private readonly C4 c4;
-		public SoftwareSystem MonitoringSystem { get; private set; }
-		public SoftwareSystem GoogleMaps { get; private set; }
-		public SoftwareSystem AircraftSystem { get; private set; }
-		public Person Ciudadano { get; private set; }
-		public Person Admin { get; private set; }
+		public SoftwareSystem SplitSystem { get; private set; }
+		public SoftwareSystem Firebase { get; private set; }
+		public SoftwareSystem OAuth { get; private set; }
+		public Person Roomate { get; private set; }
 
 		public ContextDiagram(C4 c4)
 		{
@@ -30,23 +30,22 @@ namespace c4_model_design
 
 		private void AddPeople()
 		{
-			Ciudadano = c4.Model.AddPerson("Ciudadano", "Ciudadano peruano.");
-			Admin = c4.Model.AddPerson("Admin", "User Admin.");
+            Roomate = c4.Model.AddPerson("Roomate", "Persona que registra y divide gastos.");
 		}
 
 		private void AddSoftwareSystems()
 		{
-			MonitoringSystem = c4.Model.AddSoftwareSystem("Monitoreo del Traslado Aéreo de Vacunas SARS-CoV-2", "Permite el seguimiento y monitoreo del traslado aéreo a nuestro país de las vacunas para la COVID-19.");
-			GoogleMaps = c4.Model.AddSoftwareSystem("Google Maps", "Plataforma que ofrece una REST API de información geo referencial.");
-			AircraftSystem = c4.Model.AddSoftwareSystem("Aircraft System", "Permite transmitir información en tiempo real por el avión del vuelo a nuestro sistema");
+			SplitSystem = c4.Model.AddSoftwareSystem("PocketPartners", "Aplicación para fraccionar gastos compartidos y calcular el saldo de cada persona.");
+            Firebase = c4.Model.AddSoftwareSystem("Firebase", "Plataforma en la nube que ofrece almacenamiento de datos, autenticación, hosting, y notificaciones para aplicaciones.");
+            OAuth = c4.Model.AddSoftwareSystem("OAuth", "Proveedor de autenticación.");
 		}
 
 		private void AddRelationships() {
-			Ciudadano.Uses(MonitoringSystem, "Realiza consultas para mantenerse al tanto de la planificación de los vuelos hasta la llegada del lote de vacunas al Perú");
-			Admin.Uses(MonitoringSystem, "Realiza consultas para mantenerse al tanto de la planificación de los vuelos hasta la llegada del lote de vacunas al Perú");
+            Roomate.Uses(SplitSystem, "Registra gastos y comprueba su balance"); 
+			Roomate.Uses(SplitSystem, "Cambio de moneda");
 
-			MonitoringSystem.Uses(AircraftSystem, "Consulta información en tiempo real por el avión del vuelo");
-			MonitoringSystem.Uses(GoogleMaps, "Usa la API de google maps");
+            SplitSystem.Uses(OAuth, "Autentica la cuenta de usuario");
+            SplitSystem.Uses(Firebase, "Usa la plataforma de firebase para la gestión de notificaciones en tiempo real y utilizarlo como storage para alojar las imágenes");
 		}
 
 		private void ApplyStyles() {
@@ -54,26 +53,24 @@ namespace c4_model_design
 
 			Styles styles = c4.ViewSet.Configuration.Styles;
 			
-			styles.Add(new ElementStyle(nameof(Ciudadano)) { Background = "#0a60ff", Color = "#ffffff", Shape = Shape.Person });
-			styles.Add(new ElementStyle(nameof(Admin)) { Background = "#aa60af", Color = "#ffffff", Shape = Shape.Person });
+			styles.Add(new ElementStyle(nameof(Roomate)) { Background = "#0a60ff", Color = "#ffffff", Shape = Shape.Person });
 
-			styles.Add(new ElementStyle(nameof(MonitoringSystem)) { Background = "#008f39", Color = "#ffffff", Shape = Shape.RoundedBox });
-			styles.Add(new ElementStyle(nameof(GoogleMaps)) { Background = "#90714c", Color = "#ffffff", Shape = Shape.RoundedBox });
-			styles.Add(new ElementStyle(nameof(AircraftSystem)) { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
+			styles.Add(new ElementStyle(nameof(SplitSystem)) { Background = "#008f39", Color = "#ffffff", Shape = Shape.RoundedBox });
+			styles.Add(new ElementStyle(nameof(Firebase)) { Background = "#90714c", Color = "#ffffff", Shape = Shape.RoundedBox });
+			styles.Add(new ElementStyle(nameof(OAuth)) { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
 		}
 
 		private void SetTags()
 		{
-			Ciudadano.AddTags(nameof(Ciudadano));
-			Admin.AddTags(nameof(Admin));
+            Roomate.AddTags(nameof(Roomate));
 
-			MonitoringSystem.AddTags(nameof(MonitoringSystem));
-			GoogleMaps.AddTags(nameof(GoogleMaps));
-			AircraftSystem.AddTags(nameof(AircraftSystem));
+            SplitSystem.AddTags(nameof(SplitSystem));
+            Firebase.AddTags(nameof(Firebase));
+            OAuth.AddTags(nameof(OAuth));
 		}
 
 		private void CreateView() {
-			SystemContextView contextView = c4.ViewSet.CreateSystemContextView(MonitoringSystem, "Contexto", "Diagrama de Contexto");
+			SystemContextView contextView = c4.ViewSet.CreateSystemContextView(SplitSystem, "Contexto", "Diagrama de Contexto");
 			contextView.AddAllSoftwareSystems();
 			contextView.AddAllPeople();
 		}
