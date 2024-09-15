@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace c4_model_design
 {
-	public class APIRestComponentDiagram
+	public class GroupsComponentDiagram
 	{
 		private readonly C4 c4;
 		private readonly ContextDiagram contextDiagram;
@@ -17,7 +17,7 @@ namespace c4_model_design
 		public Component Repositories { get; private set; }
 		public Component ResourceAssembler { get; private set; }
 
-        public APIRestComponentDiagram(C4 c4, ContextDiagram contextDiagram, ContainerDiagram containerDiagram)
+        public GroupsComponentDiagram(C4 c4, ContextDiagram contextDiagram, ContainerDiagram containerDiagram)
 		{
 			this.c4 = c4;
 			this.contextDiagram = contextDiagram;

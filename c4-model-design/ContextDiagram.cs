@@ -9,9 +9,13 @@ namespace c4_model_design
 		public SoftwareSystem SplitSystem { get; private set; }
 		public SoftwareSystem Firebase { get; private set; }
 		public SoftwareSystem OAuth { get; private set; }
-		public Person Roomate { get; private set; }
 
-		public ContextDiagram(C4 c4)
+		//Users
+		public Person GroupMember { get; private set; }
+
+        public Person GroupManager { get; private set; }
+
+        public ContextDiagram(C4 c4)
 		{
 			this.c4 = c4;
 		}
@@ -30,8 +34,9 @@ namespace c4_model_design
 
 		private void AddPeople()
 		{
-            Roomate = c4.Model.AddPerson("Roomate", "Persona que registra y divide gastos.");
-		}
+            GroupMember = c4.Model.AddPerson("Group Member", "Usuario que participa en el grupo, añade gastos y visualiza sus propias divisiones sin acceso a funciones administrativas.");
+            GroupManager = c4.Model.AddPerson("Group Manager", "Usuario con privilegios administrativos que gestiona las divisiones de gastos, supervisa el balance del grupo y realiza ajustes según sea necesario.");
+        }
 
 		private void AddSoftwareSystems()
 		{
@@ -41,8 +46,11 @@ namespace c4_model_design
 		}
 
 		private void AddRelationships() {
-            Roomate.Uses(SplitSystem, "Registra gastos y comprueba su balance"); 
-			Roomate.Uses(SplitSystem, "Cambio de moneda");
+            GroupMember.Uses(SplitSystem, "Registra gastos y comprueba su balance");
+            GroupMember.Uses(SplitSystem, "Cambio de moneda");
+			GroupManager.Uses(SplitSystem, "Gestiona las divisiones de gastos");
+            GroupManager.Uses(SplitSystem, "Supervisa el balanceo del grupo");
+            GroupManager.Uses(SplitSystem, "Realiza ajustes");
 
             SplitSystem.Uses(OAuth, "Autentica la cuenta de usuario");
             SplitSystem.Uses(Firebase, "Usa la plataforma de firebase para la gestión de notificaciones en tiempo real y utilizarlo como storage para alojar las imágenes");
@@ -52,18 +60,25 @@ namespace c4_model_design
 			SetTags();
 
 			Styles styles = c4.ViewSet.Configuration.Styles;
-			
-			styles.Add(new ElementStyle(nameof(Roomate)) { Background = "#0a60ff", Color = "#ffffff", Shape = Shape.Person });
 
-			styles.Add(new ElementStyle(nameof(SplitSystem)) { Background = "#008f39", Color = "#ffffff", Shape = Shape.RoundedBox });
+
+			//Users
+			styles.Add(new ElementStyle(nameof(GroupMember)) { Background = "#0ad6ff", Color = "#ffffff", Shape = Shape.Person });
+            styles.Add(new ElementStyle(nameof(GroupManager)) { Background = "#0a60ff", Color = "#ffffff", Shape = Shape.Person });
+
+			//APIs externas
+            styles.Add(new ElementStyle(nameof(SplitSystem)) { Background = "#008f39", Color = "#ffffff", Shape = Shape.RoundedBox });
 			styles.Add(new ElementStyle(nameof(Firebase)) { Background = "#90714c", Color = "#ffffff", Shape = Shape.RoundedBox });
 			styles.Add(new ElementStyle(nameof(OAuth)) { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
 		}
 
 		private void SetTags()
 		{
-            Roomate.AddTags(nameof(Roomate));
+			//Users tags para los estilos
+            GroupMember.AddTags(nameof(GroupMember));
+			GroupManager.AddTags(nameof(GroupManager));
 
+            //APIs tags para los estilos
             SplitSystem.AddTags(nameof(SplitSystem));
             Firebase.AddTags(nameof(Firebase));
             OAuth.AddTags(nameof(OAuth));
