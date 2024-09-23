@@ -29,12 +29,20 @@ namespace c4_model_design
 			ContextDiagram contextDiagram = new ContextDiagram(this);
 			ContainerDiagram containerDiagram = new ContainerDiagram(this, contextDiagram);
             
-			GroupsComponentDiagram apiRestComponentDiagram = new GroupsComponentDiagram(this, contextDiagram, containerDiagram);
-			
-			contextDiagram.Generate();
+			UsersComponentDiagram usersComponentDiagram = new UsersComponentDiagram(this, contextDiagram, containerDiagram);
+            OperationsComponentDiagram operationsComponentDiagram = new OperationsComponentDiagram(this, contextDiagram, containerDiagram);
+            GroupsComponentDiagram groupsComponentDiagram = new GroupsComponentDiagram(this, contextDiagram, containerDiagram);
+            SharedComponentDiagram sharedComponentDiagram = new SharedComponentDiagram(this, containerDiagram);
+
+
+            contextDiagram.Generate();
 			containerDiagram.Generate();
-			apiRestComponentDiagram.Generate();
-			StructurizrClient.PutWorkspace(workspaceId, Workspace);
+            usersComponentDiagram.Generate();
+            operationsComponentDiagram.Generate();
+            groupsComponentDiagram.Generate();
+            sharedComponentDiagram.Generate();
+
+            StructurizrClient.PutWorkspace(workspaceId, Workspace);
 		}
 	}
 }
