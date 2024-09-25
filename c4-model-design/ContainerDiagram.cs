@@ -10,7 +10,7 @@ namespace c4_model_design
 		public Container WebApplication { get; private set; }
 		public Container LandingPage { get; private set; }
 		public Container ApiRest { get; private set; }
-		public Container ApiGateway { get; private set; }
+		//public Container ApiGateway { get; private set; }
 
         public Container Database { get; private set; }
 
@@ -40,7 +40,7 @@ namespace c4_model_design
 			LandingPage = contextDiagram.SplitSystem.AddContainer("Landing Page", "", "HTML, CSS y JS");
 
 			ApiRest = contextDiagram.SplitSystem.AddContainer("RESTFul Web Services", "Accede a la lógica de negocio", "Spring Boot");
-            ApiGateway = contextDiagram.SplitSystem.AddContainer("API Gateway", "Gestiona la entrada de solicitudes HTTP", "Nginx/API Gateway");
+            //ApiGateway = contextDiagram.SplitSystem.AddContainer("API Gateway", "Gestiona la entrada de solicitudes HTTP", "Nginx/API Gateway");
 
             Database = contextDiagram.SplitSystem.AddContainer("DB", "", "MySQL Railway");
 			
@@ -59,14 +59,15 @@ namespace c4_model_design
             LandingPage.Uses(WebApplication, "Consulta");
 
             // La Web Application y otras interfaces externas usan el API Gateway
-            WebApplication.Uses(ApiGateway, "Envia solicitudes a través del API Gateway", "JSON/HTTPS");
+            //WebApplication.Uses(ApiGateway, "Envia solicitudes a través del API Gateway", "JSON/HTTPS");
+            WebApplication.Uses(ApiRest, "Envia solicitudes", "JSON/HTTPS");
 
             // El API Gateway enruta las solicitudes al REST API
-            ApiGateway.Uses(ApiRest, "Redirige solicitudes", "JSON/HTTPS");
+            //ApiGateway.Uses(ApiRest, "Redirige solicitudes", "JSON/HTTPS");
 
             // El REST API sigue interactuando con la base de datos y los bounded contexts
-            ApiRest.Uses(ApiGateway, "devuelve la respuesta", "");
-            ApiRest.Uses(Database, "Accede a los datos", "");
+            //ApiRest.Uses(ApiGateway, "devuelve la respuesta", "");
+
             ApiRest.Uses(Groups, "Interacciones con los grupos", "");
             ApiRest.Uses(Operations, "Interacciones con las operaciones", "");
             ApiRest.Uses(Users, "Interacciones con usuarios", "");
@@ -76,6 +77,12 @@ namespace c4_model_design
             Users.Uses(contextDiagram.OAuth, "Autenticación", "JSON/HTTPS");
             Users.Uses(contextDiagram.Firebase, "Guarda archivos", "JSON/HTTPS");
             Operations.Uses(contextDiagram.Firebase, "Guarda archivos", "JSON/HTTPS");
+
+            //Bouded con la db
+            Users.Uses(Database, "Lee y escribe", "");
+            Operations.Uses(Database, "Lee y escribe", "");
+            Groups.Uses(Database, "Lee y escribe", "");
+            Shared.Uses(Database, "Lee y escribe", "");
         }
 
 
@@ -87,7 +94,7 @@ namespace c4_model_design
 			styles.Add(new ElementStyle(nameof(LandingPage)) { Background = "#929000", Color = "#ffffff", Shape = Shape.WebBrowser, Icon = "" });
 			
 			styles.Add(new ElementStyle(nameof(ApiRest)) { Shape = Shape.RoundedBox, Background = "#0000ff", Color = "#ffffff", Icon = "" });
-            styles.Add(new ElementStyle(nameof(ApiGateway)) { Shape = Shape.RoundedBox, Background = "#0000ff", Color = "#ffffff", Icon = "" });
+            //styles.Add(new ElementStyle(nameof(ApiGateway)) { Shape = Shape.RoundedBox, Background = "#0000ff", Color = "#ffffff", Icon = "" });
 
             styles.Add(new ElementStyle(nameof(Database)) { Shape = Shape.Cylinder, Background = "#ff0000", Color = "#ffffff", Icon = "" });
 			//Bounded Context
@@ -102,7 +109,7 @@ namespace c4_model_design
 			WebApplication.AddTags(nameof(WebApplication));
 			LandingPage.AddTags(nameof(LandingPage));
 			ApiRest.AddTags(nameof(ApiRest));
-			ApiGateway.AddTags(nameof(ApiGateway));
+			//ApiGateway.AddTags(nameof(ApiGateway));
 			Database.AddTags(nameof(Database));
 			//bounded context
 			Groups.AddTags(nameof(Groups));
