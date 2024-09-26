@@ -75,14 +75,15 @@ namespace c4_model_design
 
             // Usuarios y operaciones usando servicios externos
             Users.Uses(contextDiagram.OAuth, "Autenticación", "JSON/HTTPS");
-            Users.Uses(contextDiagram.Firebase, "Guarda archivos", "JSON/HTTPS");
-            Operations.Uses(contextDiagram.Firebase, "Guarda archivos", "JSON/HTTPS");
+            Users.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
+            Operations.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
+            Operations.Uses(contextDiagram.APIConversor, "Obtiene el cambio de moneda actual", "JSON/HTTPS");
+			Groups.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
 
             //Bouded con la db
             Users.Uses(Database, "Lee y escribe", "");
             Operations.Uses(Database, "Lee y escribe", "");
             Groups.Uses(Database, "Lee y escribe", "");
-            Shared.Uses(Database, "Lee y escribe", "");
         }
 
 

@@ -7,11 +7,14 @@ namespace c4_model_design
 	{
 		private readonly C4 c4;
 		public SoftwareSystem SplitSystem { get; private set; }
+		
+		//APIS
 		public SoftwareSystem Firebase { get; private set; }
 		public SoftwareSystem OAuth { get; private set; }
+        public SoftwareSystem APIConversor { get; private set; }
 
-		//Users
-		public Person GroupMember { get; private set; }
+        //Users
+        public Person GroupMember { get; private set; }
 
         public Person GroupManager { get; private set; }
 
@@ -43,7 +46,9 @@ namespace c4_model_design
 			SplitSystem = c4.Model.AddSoftwareSystem("PocketPartners", "Aplicación para fraccionar gastos compartidos y calcular el saldo de cada persona.");
             Firebase = c4.Model.AddSoftwareSystem("Firebase", "Plataforma en la nube que ofrece almacenamiento de datos, autenticación, hosting, y notificaciones para aplicaciones.");
             OAuth = c4.Model.AddSoftwareSystem("OAuth", "Proveedor de autenticación.");
-		}
+            APIConversor = c4.Model.AddSoftwareSystem("API tipo de Cambio", "Proveedor de cambio de moneda según la SUNAT");
+
+        }
 
 		private void AddRelationships() {
             GroupMember.Uses(SplitSystem, "Registra gastos y comprueba su balance");
@@ -54,7 +59,8 @@ namespace c4_model_design
 
             SplitSystem.Uses(OAuth, "Autentica la cuenta de usuario");
             SplitSystem.Uses(Firebase, "Usa la plataforma de firebase para la gestión de notificaciones en tiempo real y utilizarlo como storage para alojar las imágenes");
-		}
+			SplitSystem.Uses(APIConversor, "API para obtener tipo de cambio de dolar estadounidense (USD) a sol (PEN) de SUNAT");
+        }
 
 		private void ApplyStyles() {
 			SetTags();
@@ -70,7 +76,8 @@ namespace c4_model_design
             styles.Add(new ElementStyle(nameof(SplitSystem)) { Background = "#008f39", Color = "#ffffff", Shape = Shape.RoundedBox });
 			styles.Add(new ElementStyle(nameof(Firebase)) { Background = "#90714c", Color = "#ffffff", Shape = Shape.RoundedBox });
 			styles.Add(new ElementStyle(nameof(OAuth)) { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
-		}
+            styles.Add(new ElementStyle(nameof(APIConversor)) { Background = "#ff8000", Color = "#ffffff", Shape = Shape.RoundedBox });
+        }
 
 		private void SetTags()
 		{
@@ -82,7 +89,9 @@ namespace c4_model_design
             SplitSystem.AddTags(nameof(SplitSystem));
             Firebase.AddTags(nameof(Firebase));
             OAuth.AddTags(nameof(OAuth));
-		}
+            APIConversor.AddTags(nameof(APIConversor));
+
+        }
 
 		private void CreateView() {
 			SystemContextView contextView = c4.ViewSet.CreateSystemContextView(SplitSystem, "Contexto", "Diagrama de Contexto");

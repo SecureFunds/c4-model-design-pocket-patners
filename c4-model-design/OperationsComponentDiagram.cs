@@ -39,6 +39,7 @@ namespace c4_model_design
         private void AddRelationships()
         {
             InfrastructureLayer.Uses(contextDiagram.Firebase, "Guarda los recibos de los pagos en Firebase", "");
+            InfrastructureLayer.Uses(contextDiagram.APIConversor, "Realiza el cambio de moneda", "");
 
             InterfaceLayer.Uses(ApplicationLayer, "Envía solicitudes de interfaz al Application Layer", "");
             ApplicationLayer.Uses(DomainLayer, "Llama a la lógica de dominio", "");
@@ -69,6 +70,7 @@ namespace c4_model_design
 			componentView.Add(this.ApplicationLayer);
 			componentView.Add(this.InfrastructureLayer);
             componentView.Add(contextDiagram.Firebase);
+            componentView.Add(contextDiagram.APIConversor);
         }
 	}
 }
