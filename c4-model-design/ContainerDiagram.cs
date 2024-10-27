@@ -39,7 +39,7 @@ namespace c4_model_design
 			WebApplication = contextDiagram.SplitSystem.AddContainer("Web App", "Permite a los usuarios visualizar un dashboard para dividir gastos entre personas.", "Angular");
 			LandingPage = contextDiagram.SplitSystem.AddContainer("Landing Page", "", "HTML, CSS y JS");
 
-			ApiRest = contextDiagram.SplitSystem.AddContainer("RESTFul Web Services", "Accede a la lógica de negocio", "Spring Boot");
+			ApiRest = contextDiagram.SplitSystem.AddContainer("RESTFul Web Services", "Accede a la lï¿½gica de negocio", "Spring Boot");
             //ApiGateway = contextDiagram.SplitSystem.AddContainer("API Gateway", "Gestiona la entrada de solicitudes HTTP", "Nginx/API Gateway");
 
             Database = contextDiagram.SplitSystem.AddContainer("DB", "", "MySQL Railway");
@@ -47,19 +47,19 @@ namespace c4_model_design
 			//bounded context
 			Groups = contextDiagram.SplitSystem.AddContainer("Groups Context", "Maneja los grupos y registra los gastos del grupo.");
             Operations = contextDiagram.SplitSystem.AddContainer("Operations Context", "Permite administrar las operaciones de cada grupo.");
-            Users = contextDiagram.SplitSystem.AddContainer("Users Context", "Maneja los usuarios, roles, su información y autenticación.");
-            Shared = contextDiagram.SplitSystem.AddContainer("Shared Context", "gestiona entidades comunes y garantiza la auditoría automática de las fechas de creación y modificación (createdAt, updatedAt), proporcionando trazabilidad y control de cambios en el sistema.");
+            Users = contextDiagram.SplitSystem.AddContainer("Users Context", "Maneja los usuarios, roles, su informaciï¿½n y autenticaciï¿½n.");
+            Shared = contextDiagram.SplitSystem.AddContainer("Shared Context", "gestiona entidades comunes y garantiza la auditorï¿½a automï¿½tica de las fechas de creaciï¿½n y modificaciï¿½n (createdAt, updatedAt), proporcionando trazabilidad y control de cambios en el sistema.");
         }
 
         private void AddRelationships()
         {
-            // Usuarios consultando la aplicación
+            // Usuarios consultando la aplicaciï¿½n
             contextDiagram.GroupMember.Uses(LandingPage, "Consulta");
             contextDiagram.GroupManager.Uses(LandingPage, "Consulta");
             LandingPage.Uses(WebApplication, "Consulta");
 
             // La Web Application y otras interfaces externas usan el API Gateway
-            //WebApplication.Uses(ApiGateway, "Envia solicitudes a través del API Gateway", "JSON/HTTPS");
+            //WebApplication.Uses(ApiGateway, "Envia solicitudes a travï¿½s del API Gateway", "JSON/HTTPS");
             WebApplication.Uses(ApiRest, "Envia solicitudes", "JSON/HTTPS");
 
             // El API Gateway enruta las solicitudes al REST API
@@ -74,11 +74,12 @@ namespace c4_model_design
             ApiRest.Uses(Shared, "Interacciones con entidades compartidas", "");
 
             // Usuarios y operaciones usando servicios externos
-            Users.Uses(contextDiagram.OAuth, "Autenticación", "JSON/HTTPS");
+            Users.Uses(contextDiagram.OAuth, "Autenticaciï¿½n", "JSON/HTTPS");
             Users.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
             Operations.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
             Operations.Uses(contextDiagram.APIConversor, "Obtiene el cambio de moneda actual", "JSON/HTTPS");
 			Groups.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
+			Groups.Uses(contextDiagram.Twillo, "Envia mensajes de texto", "JSON/HTTPS");
 
             //Bouded con la db
             Users.Uses(Database, "Lee y escribe", "");
