@@ -77,7 +77,6 @@ namespace c4_model_design
             Users.Uses(contextDiagram.OAuth, "Autenticaci�n", "JSON/HTTPS");
             Users.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
             Operations.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
-            Operations.Uses(contextDiagram.APIConversor, "Obtiene el cambio de moneda actual", "JSON/HTTPS");
 			Groups.Uses(contextDiagram.Firebase, "Guarda imagenes", "JSON/HTTPS");
 			Groups.Uses(contextDiagram.Twillo, "Envia mensajes de texto", "JSON/HTTPS");
 
@@ -85,10 +84,12 @@ namespace c4_model_design
             Users.Uses(Database, "Lee y escribe", "");
             Operations.Uses(Database, "Lee y escribe", "");
             Groups.Uses(Database, "Lee y escribe", "");
+
+			Shared.Uses(contextDiagram.APIAnuncios, "Obtiene anuncios", "JSON/HTTPS");
         }
 
 
-        private void ApplyStyles() {
+        private void ApplyStyles() {	
 			SetTags();
 			Styles styles = c4.ViewSet.Configuration.Styles;
 			styles.Add(new ElementStyle(nameof(MobileApplication)) { Background = "#9d33d6", Color = "#ffffff", Shape = Shape.MobileDevicePortrait, Icon = "" });
@@ -104,6 +105,7 @@ namespace c4_model_design
             styles.Add(new ElementStyle(nameof(Operations)) { Shape = Shape.Hexagon, Background = "#facc2e", Color = "#000000", Icon = "" });
             styles.Add(new ElementStyle(nameof(Users)) { Shape = Shape.Hexagon, Background = "#facc2e", Color = "#000000", Icon = "" });
             styles.Add(new ElementStyle(nameof(Shared)) { Shape = Shape.Hexagon, Background = "#facc2e", Color = "#000000", Icon = "" });
+
         }
 
 		private void SetTags()

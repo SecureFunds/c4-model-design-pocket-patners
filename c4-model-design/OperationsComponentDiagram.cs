@@ -30,21 +30,21 @@ namespace c4_model_design
 
         private void AddComponents()
         {
-            DomainLayer = containerDiagram.ApiRest.AddComponent("Domain Layer Operations", "Gestiona la lógica de dominio de las operaciones", "SpringBoot (Java22)");
+            DomainLayer = containerDiagram.ApiRest.AddComponent("Domain Layer Operations", "Gestiona la lï¿½gica de dominio de las operaciones", "SpringBoot (Java22)");
             InterfaceLayer = containerDiagram.ApiRest.AddComponent("Interface Layer Operations", "Proporciona las interfaces para interactuar con el dominio de las operaciones", "SpringBoot (Java22)");
-            ApplicationLayer = containerDiagram.ApiRest.AddComponent("Application Layer Operations", "Gestiona el flujo de la aplicación para las operaciones", "SpringBoot (Java22)");
-            InfrastructureLayer = containerDiagram.ApiRest.AddComponent("Infrastructure Layer Operations", "Gestiona la interacción con las tecnologías de infraestructura, como bases de datos", "SpringBoot (Java22)");
+            ApplicationLayer = containerDiagram.ApiRest.AddComponent("Application Layer Operations", "Gestiona el flujo de la aplicaciï¿½n para las operaciones", "SpringBoot (Java22)");
+            InfrastructureLayer = containerDiagram.ApiRest.AddComponent("Infrastructure Layer Operations", "Gestiona la interacciï¿½n con las tecnologï¿½as de infraestructura, como bases de datos", "SpringBoot (Java22)");
         }
 
         private void AddRelationships()
         {
             InfrastructureLayer.Uses(contextDiagram.Firebase, "Guarda los recibos de los pagos en Firebase", "");
-            InfrastructureLayer.Uses(contextDiagram.APIConversor, "Realiza el cambio de moneda", "");
+            
 
-            InterfaceLayer.Uses(ApplicationLayer, "Envía solicitudes de interfaz al Application Layer", "");
-            ApplicationLayer.Uses(DomainLayer, "Llama a la lógica de dominio", "");
+            InterfaceLayer.Uses(ApplicationLayer, "Envï¿½a solicitudes de interfaz al Application Layer", "");
+            ApplicationLayer.Uses(DomainLayer, "Llama a la lï¿½gica de dominio", "");
             ApplicationLayer.Uses(InfrastructureLayer, "Gestiona interacciones con la infraestructura", "");
-            InfrastructureLayer.Uses(DomainLayer, "Consulta y actualiza datos de la lógica de dominio", "");
+            InfrastructureLayer.Uses(DomainLayer, "Consulta y actualiza datos de la lï¿½gica de dominio", "");
             InfrastructureLayer.Uses(containerDiagram.Database, "Accede y modifica la base de datos", "");
         }
 
@@ -70,7 +70,7 @@ namespace c4_model_design
 			componentView.Add(this.ApplicationLayer);
 			componentView.Add(this.InfrastructureLayer);
             componentView.Add(contextDiagram.Firebase);
-            componentView.Add(contextDiagram.APIConversor);
+        
         }
 	}
 }

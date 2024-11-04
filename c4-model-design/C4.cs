@@ -7,8 +7,8 @@ namespace c4_model_design
 	{
 		//Los datos del Structurizr
 		private readonly long workspaceId=83843;
-		private readonly string apiKey= "0ba5b4d9-9ef2-450c-ad41-04b05e962ecc";
-		private readonly string apiSecret= "a5a7ac1e-49ce-4132-bfb3-886d5b2dcf0c";
+		private readonly string apiKey= "7525d691-9c80-4e72-971d-05252cd2ce8e";
+		private readonly string apiSecret= "5bbb343a-be87-4dbe-b367-836c580ccca1";
 
 
 		public StructurizrClient StructurizrClient { get; }
