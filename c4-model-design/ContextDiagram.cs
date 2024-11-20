@@ -44,16 +44,16 @@ namespace c4_model_design
 		private void AddPeople()
 		{
             GroupMember = c4.Model.AddPerson("Group Member", "Usuario que participa en el grupo, añade gastos y visualiza sus propias divisiones sin acceso a funciones administrativas.");
-            GroupManager = c4.Model.AddPerson("Group Manager", "Usuario con privilegios administrativos que gestiona las divisiones de gastos, supervisa el balance del grupo y realiza ajustes según sea necesario.");
+            GroupManager = c4.Model.AddPerson("Group Manager", "Usuario con privilegios administrativos que gestiona las divisiones de gastos, supervisa el balance del grupo y realiza ajustes segun sea necesario.");
         }
 
 		private void AddSoftwareSystems()
 		{
-			SplitSystem = c4.Model.AddSoftwareSystem("PocketPartners", "Aplicación para fraccionar gastos compartidos y calcular el saldo de cada persona.");
-            Firebase = c4.Model.AddSoftwareSystem("Firebase", "Plataforma en la nube que ofrece almacenamiento de datos, autenticación, hosting, y notificaciones para aplicaciones.");
+			SplitSystem = c4.Model.AddSoftwareSystem("PocketPartners", "Aplicacion para fraccionar gastos compartidos y calcular el saldo de cada persona.");
+            Firebase = c4.Model.AddSoftwareSystem("Firebase", "Plataforma en la nube que ofrece almacenamiento de datos, autenticacion, hosting, y notificaciones para aplicaciones.");
             OAuth = c4.Model.AddSoftwareSystem("OAuth", "Proveedor de autenticación.");
             
-			Twillo = c4.Model.AddSoftwareSystem("Twillo", "Plataforma de comunicación en la nube que permite a los desarrolladores integrar mensajes de texto y llamadas telefónicas en sus aplicaciones.");
+			Twillo = c4.Model.AddSoftwareSystem("Twillo", "Plataforma de comunicación en la nube que permite a los desarrolladores integrar mensajes de texto y llamadas telefonicas en sus aplicaciones.");
 			APIAnuncios = c4.Model.AddSoftwareSystem("API Externa", "API externa para obtener Anuncios de terceros");
 			
 
@@ -67,9 +67,9 @@ namespace c4_model_design
             GroupManager.Uses(SplitSystem, "Realiza ajustes");
 
             SplitSystem.Uses(OAuth, "Autentica la cuenta de usuario");
-            SplitSystem.Uses(Firebase, "Usa la plataforma de firebase para la gestión de notificaciones en tiempo real y utilizarlo como storage para alojar las imágenes");
+            SplitSystem.Uses(Firebase, "Usa la plataforma de firebase para la gestion de notificaciones en tiempo real y utilizarlo como storage para alojar las imagenes");
 			SplitSystem.Uses(Twillo, "Envía mensajes de texto para notificaciones");
-			SplitSystem.Uses(APIAnuncios, "Obtiene anuncios de terceros para mostrar en la aplicación");
+			SplitSystem.Uses(APIAnuncios, "Obtiene anuncios de terceros para mostrar en la aplicacion");
 			
         }
 
@@ -88,8 +88,8 @@ namespace c4_model_design
 			styles.Add(new ElementStyle(nameof(Firebase)) { Background = "#90714c", Color = "#ffffff", Shape = Shape.RoundedBox });
 			styles.Add(new ElementStyle(nameof(OAuth)) { Background = "#2f95c7", Color = "#ffffff", Shape = Shape.RoundedBox });
             
-			styles.Add(new ElementStyle(nameof(Twillo)) { Background = "#ff0000", Color = "#ffffff", Shape = Shape.RoundedBox });
-			styles.Add(new ElementStyle(nameof(APIAnuncios)) { Background = "#ff0000", Color = "#ffffff", Shape = Shape.RoundedBox });
+			styles.Add(new ElementStyle(nameof(Twillo)) { Background = "#ffcbdb", Color = "#ffffff", Shape = Shape.RoundedBox });
+			styles.Add(new ElementStyle(nameof(APIAnuncios)) { Background = "#FFA500", Color = "#ffffff", Shape = Shape.RoundedBox });
 			
 
         }

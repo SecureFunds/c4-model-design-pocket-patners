@@ -47,8 +47,8 @@ namespace c4_model_design
 			//bounded context
 			Groups = contextDiagram.SplitSystem.AddContainer("Groups Context", "Maneja los grupos y registra los gastos del grupo.");
             Operations = contextDiagram.SplitSystem.AddContainer("Operations Context", "Permite administrar las operaciones de cada grupo.");
-            Users = contextDiagram.SplitSystem.AddContainer("Users Context", "Maneja los usuarios, roles, su informaci�n y autenticaci�n.");
-            Shared = contextDiagram.SplitSystem.AddContainer("Shared Context", "gestiona entidades comunes y garantiza la auditor�a autom�tica de las fechas de creaci�n y modificaci�n (createdAt, updatedAt), proporcionando trazabilidad y control de cambios en el sistema.");
+            Users = contextDiagram.SplitSystem.AddContainer("Users Context", "Maneja los usuarios, roles, su informaci�n y autenticacion.");
+            Shared = contextDiagram.SplitSystem.AddContainer("Shared Context", "gestiona entidades comunes y garantiza la auditoria automatica de las fechas de creacion y modificacion (createdAt, updatedAt), proporcionando trazabilidad y control de cambios en el sistema.");
         }
 
         private void AddRelationships()

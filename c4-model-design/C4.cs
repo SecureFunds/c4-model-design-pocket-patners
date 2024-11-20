@@ -6,9 +6,9 @@ namespace c4_model_design
 	public class C4
 	{
 		//Los datos del Structurizr
-		private readonly long workspaceId=83843;
-		private readonly string apiKey= "7525d691-9c80-4e72-971d-05252cd2ce8e";
-		private readonly string apiSecret= "5bbb343a-be87-4dbe-b367-836c580ccca1";
+		private readonly long workspaceId = 97755;
+		private readonly string apiKey = "099b8a3a-828c-4f33-b75c-cf95633c3aa6";
+		private readonly string apiSecret = "758535b4-719c-435b-815c-8c17609fb8d0";
 
 
 		public StructurizrClient StructurizrClient { get; }
@@ -33,7 +33,7 @@ namespace c4_model_design
 			UsersComponentDiagram usersComponentDiagram = new UsersComponentDiagram(this, contextDiagram, containerDiagram);
             OperationsComponentDiagram operationsComponentDiagram = new OperationsComponentDiagram(this, contextDiagram, containerDiagram);
             GroupsComponentDiagram groupsComponentDiagram = new GroupsComponentDiagram(this, contextDiagram, containerDiagram);
-            SharedComponentDiagram sharedComponentDiagram = new SharedComponentDiagram(this, containerDiagram);
+            SharedComponentDiagram sharedComponentDiagram = new SharedComponentDiagram(this, contextDiagram, containerDiagram);
 
 
             contextDiagram.Generate();

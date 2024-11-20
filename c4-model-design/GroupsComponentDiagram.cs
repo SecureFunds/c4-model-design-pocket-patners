@@ -39,7 +39,9 @@ namespace c4_model_design
         private void AddRelationships()
         {
             InfrastructureLayer.Uses(contextDiagram.Firebase, "Guarda imágenes de los grupos en Firebase", "");
-
+            
+            InterfaceLayer.Uses(contextDiagram.Twillo, "Envía mensaje de textos", "");
+            
             InterfaceLayer.Uses(ApplicationLayer, "Envía solicitudes de interfaz al Application Layer", "");
             ApplicationLayer.Uses(DomainLayer, "Llama a la lógica de dominio", "");
             ApplicationLayer.Uses(InfrastructureLayer, "Gestiona interacciones con la infraestructura", "");
@@ -71,6 +73,7 @@ namespace c4_model_design
 			componentView.Add(this.ApplicationLayer);
 			componentView.Add(this.InfrastructureLayer);
             componentView.Add(contextDiagram.Firebase);
+            componentView.Add(contextDiagram.Twillo);
         }
 	}
 }
